@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immediate Newborn Care - Exam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+        }
+        .creator {
+            font-family: 'Georgia', serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+        .progress-bar {
+            background: #ecf0f1;
+            border-radius: 10px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .question:hover {
+            border-color: #3498db;
+            background: #e8f4fc;
+        }
+        .question.correct {
+            border-color: #27ae60;
+            background: #d5f4e6;
+        }
+        .question.incorrect {
+            border-color: #e74c3c;
+            background: #fde8e6;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 18px;
+        }
+        .options label {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options label:hover {
+            background-color: #ecf0f1;
+        }
+        .true-false {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .true-false label {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .true-false label:hover {
+            background-color: #ecf0f1;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .correct-answer {
+            background: #d5f4e6;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .incorrect-answer {
+            background: #fde8e6;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .result {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            color: white;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .percentage {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .back-btn {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .back-btn:hover {
+            background: #7f8c8d;
+        }
+        .restart-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-left: 10px;
+        }
+        .restart-btn:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Immediate Newborn Care - Examination</h1>
+            <div class="creator">Prepared by: Muqtada Sabah</div>
+            <p>30 Questions - Interactive Exam</p>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div id="progress-text">Progress: 0/30 (0%)</div>
+        </div>
+
+        <form id="examForm">
+            <!-- Questions 1-10: True/False -->
+            <div class="question" data-correct="true">
+                <div class="question-text">1. Establishing a patent airway is the primary objective in the delivery room.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q1" value="true"> True</label>
+                    <label><input type="radio" name="q1" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Airway management is the first priority.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div>
+            </div>
+
+            <div class="question" data-correct="true">
+                <div class="question-text">2. Newborns should be placed in supine position during sleep.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q2" value="true"> True</label>
+                    <label><input type="radio" name="q2" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Supine position reduces SIDS risk.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div>
+            </div>
+
+            <div class="question" data-correct="false">
+                <div class="question-text">3. Vigorous suctioning should be performed routinely on all newborns.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q3" value="true"> True</label>
+                    <label><input type="radio" name="q3" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Only gentle suctioning if needed to avoid complications.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is False.</div>
+            </div>
+
+            <div class="question" data-correct="true">
+                <div class="question-text">4. Rapid drying helps prevent heat loss through evaporation.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q4" value="true"> True</label>
+                    <label><input type="radio" name="q4" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Drying prevents evaporative heat loss.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div>
+            </div>
+
+            <div class="question" data-correct="false">
+                <div class="question-text">5. Newborns should be bathed immediately after delivery.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q5" value="true"> True</label>
+                    <label><input type="radio" name="q5" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Bathing should be delayed to maintain temperature.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is False.</div>
+            </div>
+
+            <div class="question" data-correct="true">
+                <div class="question-text">6. Vitamin K is routinely administered to prevent hemorrhagic disease.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q6" value="true"> True</label>
+                    <label><input type="radio" name="q6" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Vitamin K prevents hemorrhagic disease of newborn.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div>
+            </div>
+
+            <div class="question" data-correct="false">
+                <div class="question-text">7. Eye care with erythromycin can be delayed for several days.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q7" value="true"> True</label>
+                    <label><input type="radio" name="q7" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Eye prophylaxis should be given within 1 hour.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is False.</div>
+            </div>
+
+            <div class="question" data-correct="true">
+                <div class="question-text">8. Skin-to-skin contact helps maintain newborn temperature.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q8" value="true"> True</label>
+                    <label><input type="radio" name="q8" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Skin-to-skin contact promotes thermoregulation.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div>
+            </div>
+
+            <div class="question" data-correct="false">
+                <div class="question-text">9. The umbilical cord should be cut immediately after birth.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q9" value="true"> True</label>
+                    <label><input type="radio" name="q9" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Delayed cord clamping is recommended.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is False.</div>
+            </div>
+
+            <div class="question" data-correct="true">
+                <div class="question-text">10. Breastfeeding should be initiated within the first hour after birth.</div>
+                <div class="true-false">
+                    <label><input type="radio" name="q10" value="true"> True</label>
+                    <label><input type="radio" name="q10" value="false"> False</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Early breastfeeding promotes bonding and milk production.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div>
+            </div>
+
+            <!-- Questions 11-30: MCQ -->
+            <div class="question" data-correct="c">
+                <div class="question-text">11. What is the primary method to prevent heat loss in newborns?</div>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="a"> Immediate bathing</label>
+                    <label><input type="radio" name="q11" value="b"> Clothing only</label>
+                    <label><input type="radio" name="q11" value="c"> Drying and skin-to-skin</label>
+                    <label><input type="radio" name="q11" value="d"> Room heating</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Drying and skin-to-skin are most effective.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Drying and skin-to-skin.</div>
+            </div>
+
+            <div class="question" data-correct="b">
+                <div class="question-text">12. Which position is recommended for newborn sleep?</div>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="a"> Prone</label>
+                    <label><input type="radio" name="q12" value="b"> Supine</label>
+                    <label><input type="radio" name="q12" value="c"> Side-lying</label>
+                    <label><input type="radio" name="q12" value="d"> Semi-Fowler's</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Supine position reduces SIDS risk.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Supine.</div>
+            </div>
+
+            <div class="question" data-correct="d">
+                <div class="question-text">13. What is the purpose of vitamin K administration?</div>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="a"> Prevent infection</label>
+                    <label><input type="radio" name="q13" value="b"> Enhance immunity</label>
+                    <label><input type="radio" name="q13" value="c"> Improve vision</label>
+                    <label><input type="radio" name="q13" value="d"> Prevent bleeding</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Vitamin K prevents hemorrhagic disease.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Prevent bleeding.</div>
+            </div>
+
+            <div class="question" data-correct="a">
+                <div class="question-text">14. When should the first hepatitis B vaccine be given?</div>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="a"> Within 24 hours</label>
+                    <label><input type="radio" name="q14" value="b"> At 1 week</label>
+                    <label><input type="radio" name="q14" value="c"> At 1 month</label>
+                    <label><input type="radio" name="q14" value="d"> At 2 months</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! First dose should be within 24 hours.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Within 24 hours.</div>
+            </div>
+
+            <div class="question" data-correct="c">
+                <div class="question-text">15. What is the recommended method for umbilical cord care?</div>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="a"> Apply alcohol daily</label>
+                    <label><input type="radio" name="q15" value="b"> Cover with antibiotic ointment</label>
+                    <label><input type="radio" name="q15" value="c"> Keep clean and dry</label>
+                    <label><input type="radio" name="q15" value="d"> Apply powder to prevent moisture</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Keep clean and dry is the standard.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Keep clean and dry.</div>
+            </div>
+
+            <div class="question" data-correct="b">
+                <div class="question-text">16. Which is a sign of adequate hydration in newborns?</div>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="a"> Sunken fontanelle</label>
+                    <label><input type="radio" name="q16" value="b"> 6-8 wet diapers daily</label>
+                    <label><input type="radio" name="q16" value="c"> Dry mucous membranes</label>
+                    <label><input type="radio" name="q16" value="d"> Decreased skin turgor</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! 6-8 wet diapers indicate good hydration.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is 6-8 wet diapers daily.</div>
+            </div>
+
+            <div class="question" data-correct="d">
+                <div class="question-text">17. What is the primary advantage of breastfeeding?</div>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="a"> Cost savings</label>
+                    <label><input type="radio" name="q17" value="b"> Convenience</label>
+                    <label><input type="radio" name="q17" value="c"> Bonding</label>
+                    <label><input type="radio" name="q17" value="d"> Passive immunity</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Passive immunity is the key advantage.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Passive immunity.</div>
+            </div>
+
+            <div class="question" data-correct="a">
+                <div class="question-text">18. When should newborn screening tests be performed?</div>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="a"> 24-48 hours after birth</label>
+                    <label><input type="radio" name="q18" value="b"> Immediately after birth</label>
+                    <label><input type="radio" name="q18" value="c"> At 1 week</label>
+                    <label><input type="radio" name="q18" value="d"> At first pediatric visit</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Screening is done at 24-48 hours.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is 24-48 hours after birth.</div>
+            </div>
+
+            <div class="question" data-correct="c">
+                <div class="question-text">19. What is the purpose of eye prophylaxis in newborns?</div>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="a"> Prevent cataracts</label>
+                    <label><input type="radio" name="q19" value="b"> Improve vision</label>
+                    <label><input type="radio" name="q19" value="c"> Prevent ophthalmia neonatorum</label>
+                    <label><input type="radio" name="q19" value="d"> Treat conjunctivitis</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Prevents ophthalmia neonatorum from gonorrhea/chlamydia.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Prevent ophthalmia neonatorum.</div>
+            </div>
+
+            <div class="question" data-correct="b">
+                <div class="question-text">20. How long should oropharyngeal suctioning be performed?</div>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="a"> Up to 10 seconds</label>
+                    <label><input type="radio" name="q20" value="b"> Up to 5 seconds</label>
+                    <label><input type="radio" name="q20" value="c"> Up to 15 seconds</label>
+                    <label><input type="radio" name="q20" value="d"> As long as needed</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Limit to 5 seconds to prevent complications.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Up to 5 seconds.</div>
+            </div>
+
+            <div class="question" data-correct="d">
+                <div class="question-text">21. What is the recommended feeding frequency for newborns?</div>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="a"> Every 6 hours</label>
+                    <label><input type="radio" name="q21" value="b"> Every 4 hours</label>
+                    <label><input type="radio" name="q21" value="c"> 3-4 times daily</label>
+                    <label><input type="radio" name="q21" value="d"> 8-12 times daily</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Newborns need frequent feeding: 8-12 times daily.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is 8-12 times daily.</div>
+            </div>
+
+            <div class="question" data-correct="a">
+                <div class="question-text">22. Which is NOT a mechanism of heat loss in newborns?</div>
+                <div class="options">
+                    <label><input type="radio" name="q22" value="a"> Metabolism</label>
+                    <label><input type="radio" name="q22" value="b"> Evaporation</label>
+                    <label><input type="radio" name="q22" value="c"> Conduction</label>
+                    <label><input type="radio" name="q22" value="d"> Radiation</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Metabolism produces heat, doesn't cause loss.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Metabolism.</div>
+            </div>
+
+            <div class="question" data-correct="c">
+                <div class="question-text">23. When is the best time for parent-infant bonding?</div>
+                <div class="options">
+                    <label><input type="radio" name="q23" value="a"> After routine procedures</label>
+                    <label><input type="radio" name="q23" value="b"> During bathing</label>
+                    <label><input type="radio" name="q23" value="c"> Immediately after birth</label>
+                    <label><input type="radio" name="q23" value="d"> After the first feeding</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Immediate skin-to-skin promotes bonding.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Immediately after birth.</div>
+            </div>
+
+            <div class="question" data-correct="b">
+                <div class="question-text">24. What is the first fluid secreted from the breast called?</div>
+                <div class="options">
+                    <label><input type="radio" name="q24" value="a"> Mature milk</label>
+                    <label><input type="radio" name="q24" value="b"> Colostrum</label>
+                    <label><input type="radio" name="q24" value="c"> Transitional milk</label>
+                    <label><input type="radio" name="q24" value="d"> Foremilk</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Colostrum is the first milk, rich in antibodies.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Colostrum.</div>
+            </div>
+
+            <div class="question" data-correct="d">
+                <div class="question-text">25. Which is a contraindication for breastfeeding?</div>
+                <div class="options">
+                    <label><input type="radio" name="q25" value="a"> Maternal fatigue</label>
+                    <label><input type="radio" name="q25" value="b"> Small breast size</label>
+                    <label><input type="radio" name="q25" value="c"> Previous cesarean section</label>
+                    <label><input type="radio" name="q25" value="d"> Maternal HIV infection</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! HIV is a contraindication in some settings.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Maternal HIV infection.</div>
+            </div>
+
+            <div class="question" data-correct="a">
+                <div class="question-text">26. What is the normal blood glucose level in newborns?</div>
+                <div class="options">
+                    <label><input type="radio" name="q26" value="a"> 40-60 mg/dL</label>
+                    <label><input type="radio" name="q26" value="b"> 60-80 mg/dL</label>
+                    <label><input type="radio" name="q26" value="c"> 80-100 mg/dL</label>
+                    <label><input type="radio" name="q26" value="d"> 100-120 mg/dL</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Normal is 40-60 mg/dL in newborns.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is 40-60 mg/dL.</div>
+            </div>
+
+            <div class="question" data-correct="c">
+                <div class="question-text">27. When should circumcision care begin?</div>
+                <div class="options">
+                    <label><input type="radio" name="q27" value="a"> Immediately after procedure</label>
+                    <label><input type="radio" name="q27" value="b"> After 24 hours</label>
+                    <label><input type="radio" name="q27" value="c"> After the Plastibell falls off</label>
+                    <label><input type="radio" name="q27" value="d"> At first pediatric visit</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Care begins after Plastibell falls off in 5-8 days.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is After the Plastibell falls off.</div>
+            </div>
+
+            <div class="question" data-correct="b">
+                <div class="question-text">28. What is the recommended room temperature for newborns?</div>
+                <div class="options">
+                    <label><input type="radio" name="q28" value="a"> 18-20°C (65-68°F)</label>
+                    <label><input type="radio" name="q28" value="b"> 20-22°C (68-72°F)</label>
+                    <label><input type="radio" name="q28" value="c"> 22-24°C (72-75°F)</label>
+                    <label><input type="radio" name="q28" value="d"> 24-26°C (75-79°F)</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! 20-22°C is ideal for newborn thermoregulation.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is 20-22°C (68-72°F).</div>
+            </div>
+
+            <div class="question" data-correct="d">
+                <div class="question-text">29. Which is a sign of respiratory distress in newborns?</div>
+                <div class="options">
+                    <label><input type="radio" name="q29" value="a"> Regular breathing</label>
+                    <label><input type="radio" name="q29" value="b"> Pink color</label>
+                    <label><input type="radio" name="q29" value="c"> Strong cry</label>
+                    <label><input type="radio" name="q29" value="d"> Grunting</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Grunting indicates respiratory distress.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Grunting.</div>
+            </div>
+
+            <div class="question" data-correct="a">
+                <div class="question-text">30. What is the purpose of newborn hearing screening?</div>
+                <div class="options">
+                    <label><input type="radio" name="q30" value="a"> Early detection of hearing loss</label>
+                    <label><input type="radio" name="q30" value="b"> Test brain development</label>
+                    <label><input type="radio" name="q30" value="c"> Check ear anatomy</label>
+                    <label><input type="radio" name="q30" value="d"> Prevent ear infections</label>
+                </div>
+                <div class="feedback correct-answer">✓ Correct! Early detection allows for early intervention.</div>
+                <div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Early detection of hearing loss.</div>
+            </div>
+
+        </form>
+
+        <div class="result" id="result">
+            <h2>🎉 Exam Completed! 🎉</h2>
+            <div class="score" id="final-score">0/30</div>
+            <div class="percentage" id="percentage">0%</div>
+            <p id="performance-message">Keep studying!</p>
+            <button class="restart-btn" onclick="restartExam()">Restart Exam</button>
+            <a href="index.html" class="back-btn">Back to Main Menu</a>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let answeredQuestions = 0;
+        const totalQuestions = 30;
+
+        // Initialize all questions
+        document.querySelectorAll('.question').forEach((question, index) => {
+            const radioInputs = question.querySelectorAll('input[type="radio"]');
+            const correctFeedback = question.querySelector('.correct-answer');
+            const incorrectFeedback = question.querySelector('.incorrect-answer');
+            
+            radioInputs.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const userAnswer = this.value;
+                    const correctAnswer = question.getAttribute('data-correct');
+                    
+                    // Show feedback
+                    if (userAnswer === correctAnswer) {
+                        question.classList.add('correct');
+                        question.classList.remove('incorrect');
+                        correctFeedback.style.display = 'block';
+                        incorrectFeedback.style.display = 'none';
+                        if (!question.classList.contains('answered')) {
+                            score++;
+                        }
+                    } else {
+                        question.classList.add('incorrect');
+                        question.classList.remove('correct');
+                        correctFeedback.style.display = 'none';
+                        incorrectFeedback.style.display = 'block';
+                    }
+                    
+                    // Mark as answered
+                    if (!question.classList.contains('answered')) {
+                        question.classList.add('answered');
+                        answeredQuestions++;
+                        updateProgress();
+                    }
+                    
+                    // Check if exam is completed
+                    if (answeredQuestions === totalQuestions) {
+                        showResults();
+                    }
+                });
+            });
+        });
+
+        function updateProgress() {
+            const progress = (answeredQuestions / totalQuestions) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = 
+                `Progress: ${answeredQuestions}/${totalQuestions} (${Math.round(progress)}%)`;
+        }
+
+        function showResults() {
+            const percentage = (score / totalQuestions) * 100;
+            document.getElementById('final-score').textContent = `${score}/${totalQuestions}`;
+            document.getElementById('percentage').textContent = `${percentage.toFixed(1)}%`;
+            
+            let message = '';
+            if (percentage >= 90) message = 'Excellent! Outstanding performance! 🌟';
+            else if (percentage >= 80) message = 'Very good! Well done! 👍';
+            else if (percentage >= 70) message = 'Good job! Keep it up! 💪';
+            else if (percentage >= 60) message = 'Passed! But needs more practice. 📚';
+            else message = 'Needs improvement. Review the material. 🧠';
+            
+            document.getElementById('performance-message').textContent = message;
+            document.getElementById('result').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function restartExam() {
+            // Reset all questions
+            document.querySelectorAll('.question').forEach(question => {
+                question.classList.remove('answered', 'correct', 'incorrect');
+                const radioInputs = question.querySelectorAll('input[type="radio"]');
+                radioInputs.forEach(radio => radio.checked = false);
+                question.querySelector('.correct-answer').style.display = 'none';
+                question.querySelector('.incorrect-answer').style.display = 'none';
+            });
+            
+            // Reset counters
+            score = 0;
+            answeredQuestions = 0;
+            updateProgress();
+            
+            // Hide results
+            document.getElementById('result').style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
