@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child with Genitourinary Dysfunction - Exam</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; min-height: 100vh; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #3498db; }
+        .creator { font-family: 'Georgia', serif; font-size: 24px; font-weight: bold; color: #2c3e50; margin: 15px 0; }
+        .progress-bar { background: #ecf0f1; border-radius: 10px; height: 20px; margin: 20px 0; overflow: hidden; }
+        .progress { background: linear-gradient(145deg, #2ecc71, #27ae60); height: 100%; width: 0%; transition: width 0.5s ease; }
+        .question { margin-bottom: 20px; padding: 20px; border: 2px solid #bdc3c7; border-radius: 10px; background: #f8f9fa; cursor: pointer; transition: all 0.3s ease; }
+        .question:hover { border-color: #3498db; background: #e8f4fc; }
+        .question.correct { border-color: #27ae60; background: #d5f4e6; }
+        .question.incorrect { border-color: #e74c3c; background: #fde8e6; }
+        .question-text { font-weight: bold; margin-bottom: 15px; color: #2c3e50; font-size: 18px; }
+        .options label { display: block; margin: 8px 0; padding: 10px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
+        .options label:hover { background-color: #ecf0f1; }
+        .true-false { display: flex; gap: 15px; margin-top: 10px; }
+        .true-false label { flex: 1; text-align: center; padding: 12px; border: 2px solid #bdc3c7; border-radius: 8px; cursor: pointer; }
+        .true-false label:hover { background-color: #ecf0f1; }
+        input[type="radio"] { margin-right: 10px; }
+        .feedback { margin-top: 10px; padding: 10px; border-radius: 5px; display: none; }
+        .correct-answer { background: #d5f4e6; color: #27ae60; font-weight: bold; }
+        .incorrect-answer { background: #fde8e6; color: #e74c3c; font-weight: bold; }
+        .result { display: none; text-align: center; padding: 30px; background: linear-gradient(145deg, #2ecc71, #27ae60); color: white; border-radius: 15px; margin-top: 30px; }
+        .score { font-size: 48px; font-weight: bold; margin: 20px 0; }
+        .percentage { font-size: 24px; margin-bottom: 20px; }
+        .back-btn { background: #95a5a6; color: white; border: none; padding: 12px 25px; border-radius: 8px; text-decoration: none; display: inline-block; margin-top: 20px; cursor: pointer; }
+        .back-btn:hover { background: #7f8c8d; }
+        .restart-btn { background: #3498db; color: white; border: none; padding: 12px 25px; border-radius: 8px; margin-top: 20px; cursor: pointer; margin-left: 10px; }
+        .restart-btn:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Child with Genitourinary Dysfunction - Examination</h1>
+            <div class="creator">Prepared by: Muqtada Sabah</div>
+            <p>30 Questions - Interactive Exam</p>
+            <div class="progress-bar"><div class="progress" id="progress"></div></div>
+            <div id="progress-text">Progress: 0/30 (0%)</div>
+        </div>
+
+        <form id="examForm">
+            <!-- Questions 1-10: True/False -->
+            <div class="question" data-correct="true"><div class="question-text">1. Cystitis is inflammation of the bladder.</div><div class="true-false"><label><input type="radio" name="q1" value="true"> True</label><label><input type="radio" name="q1" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! Cystitis is bladder inflammation.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div></div>
+
+            <div class="question" data-correct="false"><div class="question-text">2. Pyelonephritis affects only the lower urinary tract.</div><div class="true-false"><label><input type="radio" name="q2" value="true"> True</label><label><input type="radio" name="q2" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! Pyelonephritis affects upper urinary tract and kidneys.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is False.</div></div>
+
+            <div class="question" data-correct="true"><div class="question-text">3. Hydrocele is fluid accumulation in the scrotum.</div><div class="true-false"><label><input type="radio" name="q3" value="true"> True</label><label><input type="radio" name="q3" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! Hydrocele is scrotal fluid collection.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div></div>
+
+            <div class="question" data-correct="false"><div class="question-text">4. Cryptorchidism means both testes are present in scrotum.</div><div class="true-false"><label><input type="radio" name="q4" value="true"> True</label><label><input type="radio" name="q4" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! Cryptorchidism means undescended testes.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is False.</div></div>
+
+            <div class="question" data-correct="true"><div class="question-text">5. Hypospadias is abnormal urethral opening placement.</div><div class="true-false"><label><input type="radio" name="q5" value="true"> True</label><label><input type="radio" name="q5" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! Hypospadias involves abnormal urethral opening.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div></div>
+
+            <div class="question" data-correct="false"><div class="question-text">6. Kidney development completes at birth.</div><div class="true-false"><label><input type="radio" name="q6" value="true"> True</label><label><input type="radio" name="q6" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! Kidney development continues until about 1 year.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is False.</div></div>
+
+            <div class="question" data-correct="true"><div class="question-text">7. Nephrotic syndrome involves massive proteinuria.</div><div class="true-false"><label><input type="radio" name="q7" value="true"> True</label><label><input type="radio" name="q7" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! Proteinuria is key in nephrotic syndrome.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div></div>
+
+            <div class="question" data-correct="false"><div class="question-text">8. UTI in children always presents with classic symptoms.</div><div class="true-false"><label><input type="radio" name="q8" value="true"> True</label><label><input type="radio" name="q8" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! UTI symptoms can be nonspecific in children.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is False.</div></div>
+
+            <div class="question" data-correct="true"><div class="question-text">9. E. coli is the most common UTI pathogen.</div><div class="true-false"><label><input type="radio" name="q9" value="true"> True</label><label><input type="radio" name="q9" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! E. coli causes most UTIs.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is True.</div></div>
+
+            <div class="question" data-correct="false"><div class="question-text">10. All children with UTI need IV antibiotics.</div><div class="true-false"><label><input type="radio" name="q10" value="true"> True</label><label><input type="radio" name="q10" value="false"> False</label></div><div class="feedback correct-answer">✓ Correct! Many UTIs can be treated with oral antibiotics.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is False.</div></div>
+
+            <!-- Questions 11-30: MCQ -->
+            <div class="question" data-correct="c"><div class="question-text">11. What defines nephrotic syndrome?</div><div class="options"><label><input type="radio" name="q11" value="a"> Hematuria and hypertension</label><label><input type="radio" name="q11" value="b"> Glycosuria and polyuria</label><label><input type="radio" name="q11" value="c"> Proteinuria and hypoalbuminemia</label><label><input type="radio" name="q11" value="d"> Bacteriuria and fever</label></div><div class="feedback correct-answer">✓ Correct! Proteinuria and hypoalbuminemia are key features.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Proteinuria and hypoalbuminemia.</div></div>
+
+            <div class="question" data-correct="b"><div class="question-text">12. Most common cause of nephrotic syndrome in children?</div><div class="options"><label><input type="radio" name="q12" value="a"> Congenital nephrotic syndrome</label><label><input type="radio" name="q12" value="b"> Minimal change nephrotic syndrome</label><label><input type="radio" name="q12" value="c"> Lupus nephritis</label><label><input type="radio" name="q12" value="d"> Diabetic nephropathy</label></div><div class="feedback correct-answer">✓ Correct! MCNS accounts for 80% of cases.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Minimal change nephrotic syndrome.</div></div>
+
+            <div class="question" data-correct="d"><div class="question-text">13. What is pyuria?</div><div class="options"><label><input type="radio" name="q13" value="a"> Blood in urine</label><label><input type="radio" name="q13" value="b"> Protein in urine</label><label><input type="radio" name="q13" value="c"> Bacteria in urine</label><label><input type="radio" name="q13" value="d"> White blood cells in urine</label></div><div class="feedback correct-answer">✓ Correct! Pyuria means WBCs in urine.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is White blood cells in urine.</div></div>
+
+            <div class="question" data-correct="a"><div class="question-text">14. Primary treatment for nephrotic syndrome?</div><div class="options"><label><input type="radio" name="q14" value="a"> Corticosteroids</label><label><input type="radio" name="q14" value="b"> Antibiotics</label><label><input type="radio" name="q14" value="c"> Diuretics</label><label><input type="radio" name="q14" value="d"> Antihypertensives</label></div><div class="feedback correct-answer">✓ Correct! Corticosteroids are first-line treatment.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Corticosteroids.</div></div>
+
+            <div class="question" data-correct="c"><div class="question-text">15. Most common UTI pathogen in children?</div><div class="options"><label><input type="radio" name="q15" value="a"> Staphylococcus aureus</label><label><input type="radio" name="q15" value="b"> Klebsiella</label><label><input type="radio" name="q15" value="c"> Escherichia coli</label><label><input type="radio" name="q15" value="d"> Proteus mirabilis</label></div><div class="feedback correct-answer">✓ Correct! E. coli is most common.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Escherichia coli.</div></div>
+
+            <div class="question" data-correct="b"><div class="question-text">16. What is cryptorchidism?</div><div class="options"><label><input type="radio" name="q16" value="a"> Inflamed testes</label><label><input type="radio" name="q16" value="b"> Undescended testes</label><label><input type="radio" name="q16" value="c"> Fluid in scrotum</label><label><input type="radio" name="q16" value="d"> Absent testes</label></div><div class="feedback correct-answer">✓ Correct! Cryptorchidism means undescended testes.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Undescended testes.</div></div>
+
+            <div class="question" data-correct="d"><div class="question-text">17. Key sign distinguishing true UTI from contamination?</div><div class="options"><label><input type="radio" name="q17" value="a"> Cloudy urine</label><label><input type="radio" name="q17" value="b"> Foul odor</label><label><input type="radio" name="q17" value="c"> Bacteria in culture</label><label><input type="radio" name="q17" value="d"> Presence of pyuria</label></div><div class="feedback correct-answer">✓ Correct! Pyuria indicates true infection.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Presence of pyuria.</div></div>
+
+            <div class="question" data-correct="a"><div class="question-text">18. What is hypospadias?</div><div class="options"><label><input type="radio" name="q18" value="a"> Urethral opening on underside of penis</label><label><input type="radio" name="q18" value="b"> Urethral opening on top of penis</label><label><input type="radio" name="q18" value="c"> Absent urethral opening</label><label><input type="radio" name="q18" value="d"> Double urethral opening</label></div><div class="feedback correct-answer">✓ Correct! Hypospadias is ventral urethral opening.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Urethral opening on underside of penis.</div></div>
+
+            <div class="question" data-correct="c"><div class="question-text">19. Main complication of untreated UTI in children?</div><div class="options"><label><input type="radio" name="q19" value="a"> Bladder stones</label><label><input type="radio" name="q19" value="b"> Incontinence</label><label><input type="radio" name="q19" value="c"> Renal scarring</label><label><input type="radio" name="q19" value="d"> Testicular torsion</label></div><div class="feedback correct-answer">✓ Correct! Renal scarring can lead to long-term damage.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Renal scarring.</div></div>
+
+            <div class="question" data-correct="b"><div class="question-text">20. When does kidney development complete?</div><div class="options"><label><input type="radio" name="q20" value="a"> At birth</label><label><input type="radio" name="q20" value="b"> End of first year</label><label><input type="radio" name="q20" value="c"> Age 2 years</label><label><input type="radio" name="q20" value="d"> Age 5 years</label></div><div class="feedback correct-answer">✓ Correct! Kidney development completes around 1 year.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is End of first year.</div></div>
+
+            <div class="question" data-correct="d"><div class="question-text">21. What is anorchism?</div><div class="options"><label><input type="radio" name="q21" value="a"> Undescended testes</label><label><input type="radio" name="q21" value="b"> Inflamed testes</label><label><input type="radio" name="q21" value="c"> Fluid around testes</label><label><input type="radio" name="q21" value="d"> Complete absence of testes</label></div><div class="feedback correct-answer">✓ Correct! Anorchism means no testes present.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Complete absence of testes.</div></div>
+
+            <div class="question" data-correct="a"><div class="question-text">22. Primary symptom of nephrotic syndrome?</div><div class="options"><label><input type="radio" name="q22" value="a"> Edema</label><label><input type="radio" name="q22" value="b"> Hematuria</label><label><input type="radio" name="q22" value="c"> Dysuria</label><label><input type="radio" name="q22" value="d"> Nocturia</label></div><div class="feedback correct-answer">✓ Correct! Edema is the main presenting symptom.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Edema.</div></div>
+
+            <div class="question" data-correct="c"><div class="question-text">23. What indicates UTI in urine analysis?</div><div class="options"><label><input type="radio" name="q23" value="a"> Glucose</label><label><input type="radio" name="q23" value="b"> Ketones</label><label><input type="radio" name="q23" value="c"> Nitrites</label><label><input type="radio" name="q23" value="d"> Bilirubin</label></div><div class="feedback correct-answer">✓ Correct! Nitrites suggest bacteriuria.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Nitrites.</div></div>
+
+            <div class="question" data-correct="b"><div class="question-text">24. Highest UTI risk group?</div><div class="options"><label><input type="radio" name="q24" value="a"> Circumcised boys</label><label><input type="radio" name="q24" value="b"> Uncircumcised boys under 3 months</label><label><input type="radio" name="q24" value="c"> Adolescent girls</label><label><input type="radio" name="q24" value="d"> School-age boys</label></div><div class="feedback correct-answer">✓ Correct! Uncircumcised infants have highest risk.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Uncircumcised boys under 3 months.</div></div>
+
+            <div class="question" data-correct="d"><div class="question-text">25. What is urosepsis?</div><div class="options"><label><input type="radio" name="q25" value="a"> Kidney stones</label><label><input type="radio" name="q25" value="b"> Bladder infection</label><label><input type="radio" name="q25" value="c"> Urethral stricture</label><label><input type="radio" name="q25" value="d"> UTI with systemic infection</label></div><div class="feedback correct-answer">✓ Correct! Urosepsis is UTI with systemic signs.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is UTI with systemic infection.</div></div>
+
+            <div class="question" data-correct="a"><div class="question-text">26. Diet recommendation for nephrotic syndrome?</div><div class="options"><label><input type="radio" name="q26" value="a"> Low sodium</label><label><input type="radio" name="q26" value="b"> High protein</label><label><input type="radio" name="q26" value="c"> High potassium</label><label><input type="radio" name="q26" value="d"> Fluid restriction</label></div><div class="feedback correct-answer">✓ Correct! Sodium restriction helps control edema.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Low sodium.</div></div>
+
+            <div class="question" data-correct="c"><div class="question-text">27. What is epispadias?</div><div class="options"><label><input type="radio" name="q27" value="a"> Urethral opening on underside</label><label><input type="radio" name="q27" value="b"> Undescended testes</label><label><input type="radio" name="q27" value="c"> Urethral opening on topside</label><label><input type="radio" name="q27" value="d"> Absent urethra</label></div><div class="feedback correct-answer">✓ Correct! Epispadias is dorsal urethral opening.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Urethral opening on topside.</div></div>
+
+            <div class="question" data-correct="b"><div class="question-text">28. Common UTI symptom in infants?</div><div class="options"><label><input type="radio" name="q28" value="a"> Dysuria</label><label><input type="radio" name="q28" value="b"> Fever</label><label><input type="radio" name="q28" value="c"> Frequency</label><label><input type="radio" name="q28" value="d"> Urgency</label></div><div class="feedback correct-answer">✓ Correct! Fever is common in infant UTIs.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Fever.</div></div>
+
+            <div class="question" data-correct="d"><div class="question-text">29. What confirms UTI diagnosis?</div><div class="options"><label><input type="radio" name="q29" value="a"> Cloudy urine</label><label><input type="radio" name="q29" value="b"> Foul odor</label><label><input type="radio" name="q29" value="c"> Positive dipstick</label><label><input type="radio" name="q29" value="d"> Positive urine culture</label></div><div class="feedback correct-answer">✓ Correct! Culture confirms UTI diagnosis.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Positive urine culture.</div></div>
+
+            <div class="question" data-correct="a"><div class="question-text">30. Main nursing concern in nephrotic syndrome?</div><div class="options"><label><input type="radio" name="q30" value="a"> Infection risk</label><label><input type="radio" name="q30" value="b"> Hypertension</label><label><input type="radio" name="q30" value="c"> Dehydration</label><label><input type="radio" name="q30" value="d"> Hyperglycemia</label></div><div class="feedback correct-answer">✓ Correct! Increased infection risk due to immunosuppression.</div><div class="feedback incorrect-answer">✗ Incorrect. The correct answer is Infection risk.</div></div>
+
+        </form>
+
+        <div class="result" id="result">
+            <h2>🎉 Exam Completed! 🎉</h2>
+            <div class="score" id="final-score">0/30</div>
+            <div class="percentage" id="percentage">0%</div>
+            <p id="performance-message">Keep studying!</p>
+            <button class="restart-btn" onclick="restartExam()">Restart Exam</button>
+            <a href="index.html" class="back-btn">Back to Main Menu</a>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let answeredQuestions = 0;
+        const totalQuestions = 30;
+
+        document.querySelectorAll('.question').forEach((question) => {
+            const radioInputs = question.querySelectorAll('input[type="radio"]');
+            const correctFeedback = question.querySelector('.correct-answer');
+            const incorrectFeedback = question.querySelector('.incorrect-answer');
+            
+            radioInputs.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const userAnswer = this.value;
+                    const correctAnswer = question.getAttribute('data-correct');
+                    
+                    if (userAnswer === correctAnswer) {
+                        question.classList.add('correct');
+                        question.classList.remove('incorrect');
+                        correctFeedback.style.display = 'block';
+                        incorrectFeedback.style.display = 'none';
+                        if (!question.classList.contains('answered')) score++;
+                    } else {
+                        question.classList.add('incorrect');
+                        question.classList.remove('correct');
+                        correctFeedback.style.display = 'none';
+                        incorrectFeedback.style.display = 'block';
+                    }
+                    
+                    if (!question.classList.contains('answered')) {
+                        question.classList.add('answered');
+                        answeredQuestions++;
+                        updateProgress();
+                    }
+                    
+                    if (answeredQuestions === totalQuestions) showResults();
+                });
+            });
+        });
+
+        function updateProgress() {
+            const progress = (answeredQuestions / totalQuestions) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = `Progress: ${answeredQuestions}/${totalQuestions} (${Math.round(progress)}%)`;
+        }
+
+        function showResults() {
+            const percentage = (score / totalQuestions) * 100;
+            document.getElementById('final-score').textContent = `${score}/${totalQuestions}`;
+            document.getElementById('percentage').textContent = `${percentage.toFixed(1)}%`;
+            
+            let message = '';
+            if (percentage >= 90) message = 'Excellent! 🌟';
+            else if (percentage >= 80) message = 'Very good! 👍';
+            else if (percentage >= 70) message = 'Good job! 💪';
+            else if (percentage >= 60) message = 'Passed! 📚';
+            else message = 'Needs improvement. 🧠';
+            
+            document.getElementById('performance-message').textContent = message;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function restartExam() {
+            document.querySelectorAll('.question').forEach(question => {
+                question.classList.remove('answered', 'correct', 'incorrect');
+                const radioInputs = question.querySelectorAll('input[type="radio"]');
+                radioInputs.forEach(radio => radio.checked = false);
+                question.querySelector('.correct-answer').style.display = 'none';
+                question.querySelector('.incorrect-answer').style.display = 'none';
+            });
+            
+            score = 0;
+            answeredQuestions = 0;
+            updateProgress();
+            document.getElementById('result').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
